@@ -1,5 +1,8 @@
 package com.example.cstworkstation.lagosbasedjavadeveloperslist;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by CST Workstation on 9/11/2017.
  */
@@ -24,7 +27,7 @@ public class Developer {
 
     //Get Developer Profile URL
     public String getDeveloperProfileUrl(){
-        return developerProfileUrl;
+        return developerProfileUrl = "https://api.github.com/users/" + developerUsername;
     }
 
     //Get Numer od Developer's followers
@@ -40,5 +43,23 @@ public class Developer {
     //Get number of repositories owned by developer
     public String getRepositories() {
         return repositories;
+    }
+
+    //Returns a Developer detail given the expected JSON
+    public static Developer fromJson(JSONObject jsonObject){
+        Developer developer = new Developer();
+        try {
+            //Deserialize json into object fields
+            //Check if a username is specified
+            if (jsonObject.has("username")){
+                developer.developerUsername = jsonObject.getString(developer.developerUsername);
+            }
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+            return null;
+        }
+        //Return new object
+        return developer;
     }
 }
