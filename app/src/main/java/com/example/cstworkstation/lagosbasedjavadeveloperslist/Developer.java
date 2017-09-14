@@ -2,6 +2,9 @@ package com.example.cstworkstation.lagosbasedjavadeveloperslist;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONArray;
+
+import java.util.ArrayList;
 
 /**
  * Created by CST Workstation on 9/11/2017.
@@ -11,12 +14,13 @@ public class Developer {
     private String developerName;
     private String developerUsername;
     private String developerProfileUrl;
+    private String developerProfilePictureUrl;
     private String followers;
     private String followings;
     private String repositories;
 
     //Get Developer Name
-    public String getDaveloperName(){
+    public String getDeveloperName(){
         return developerName;
     }
 
@@ -28,6 +32,11 @@ public class Developer {
     //Get Developer Profile URL
     public String getDeveloperProfileUrl(){
         return developerProfileUrl = "https://api.github.com/users/" + developerUsername;
+    }
+
+    //Get Developer Profile Picture URL
+    public String getDeveloperProfilePictureUrl(){
+        return developerProfilePictureUrl = "https://api.github.com/users/" + developerUsername + ".png";
     }
 
     //Get Numer od Developer's followers
@@ -61,5 +70,28 @@ public class Developer {
         }
         //Return new object
         return developer;
+
+        // Decodes array of Developer json results into business model objects
+        public static ArrayList<Developer> fromJson(JSONArray jsonArray;
+        jsonArray) {
+            ArrayList<Developer> Developers = new ArrayList<Developer>(jsonArray.length());
+            // Process each result in json array, decode and convert to business
+            // object
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject developerJson = null;
+                try {
+                    developerJson = jsonArray.getJSONObject(i);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    continue;
+                }
+                Developer developer = Developer.fromJson(developerJson);
+                if (developer != null) {
+                    developers.add(developers);
+                }
+            }
+            return developers;
+        }
+    }
     }
 }

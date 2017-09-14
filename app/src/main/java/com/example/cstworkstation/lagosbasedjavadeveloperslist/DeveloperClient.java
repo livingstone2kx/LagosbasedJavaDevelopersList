@@ -23,9 +23,9 @@ public class DeveloperClient {
     }
 
     // Method for accessing the search API
-    public void getBooks(final String query, JsonHttpResponseHandler handler) {
+    public void getDevelopers(final String query, JsonHttpResponseHandler handler) {
         try {
-            String url = getApiUrl("search.json?q=");
+            String url = getApiUrl("/search/users?q=language:java+location:lagos");
             client.get(url + URLEncoder.encode(query, "utf-8"), handler);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
