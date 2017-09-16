@@ -32,5 +32,10 @@ public class DeveloperClient {
         }
     }
 
+    // Method for accessing search API to get number of repositories, followers and followings of a developer
+    public void getExtraDeveloperDetails(String openLibraryId, JsonHttpResponseHandler handler) {
+        String url = getApiUrl("username/");
+        client.get(url + openLibraryId + ".json", handler);
+    }
 
 }

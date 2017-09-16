@@ -4,13 +4,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.jar.Attributes;
 
 /**
  * Created by CST Workstation on 9/11/2017.
  */
 
-public class Developer {
+public class Developer implements Serializable {
     private String developerName;
     private String developerUsername;
     private String developerProfileUrl;
@@ -60,9 +62,13 @@ public class Developer {
         try {
             //Deserialize json into object fields
             //Check if a username is specified
-            if (jsonObject.has("username")){
+            if (jsonObject.has("username")) {
                 developer.developerUsername = jsonObject.getString(developer.developerUsername);
+            } else if (jsonObject.has("Name")) {
+                final JSONArray devs = jsonObject.getJSONArray("Name");
+                developer.developerUsername = devs.getString(0);
             }
+            developer.developerName = jsonObject.has("Name") ? jsonObject.getString("Name"): "";
         }
         catch (JSONException e){
             e.printStackTrace();
@@ -72,9 +78,8 @@ public class Developer {
         return developer;
 
         // Decodes array of Developer json results into business model objects
-        public static ArrayList<Developer> fromJson(JSONArray jsonArray;
-        jsonArray) {
-            ArrayList<Developer> Developers = new ArrayList<Developer>(jsonArray.length());
+        public static ArrayList<Developer> fromJson(JSONArray jsonArray) {
+            ArrayList<Developer> developers = new ArrayList<Developer>(jsonArray.length());
             // Process each result in json array, decode and convert to business
             // object
             for (int i = 0; i < jsonArray.length(); i++) {
